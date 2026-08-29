@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cross-Platform Endpoint Tooling — One-to-One Comparison</title>
+  <title>Cross-Platform Endpoint Tooling — One-to-One Decisions</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -15,9 +15,8 @@
   }
   .wrap { max-width: 1180px; margin: 0 auto; }
   .kicker { font-size: 13px; font-weight: 600; letter-spacing: 1.3px; text-transform: uppercase; color: #656a76; margin-bottom: 10px; }
-  h1 { font-size: 27px; font-weight: 600; line-height: 1.2; }
-  .sub { font-size: 14px; color: #656a76; margin-top: 8px; line-height: 1.55; max-width: 800px; }
-  p.note { font-size: 12.5px; color: #8a8f98; margin-top: 6px; }
+  h1 { font-size: 26px; font-weight: 600; line-height: 1.2; }
+  .sub { font-size: 14px; color: #656a76; margin-top: 8px; line-height: 1.55; max-width: 880px; }
 
   table { width: 100%; border-collapse: collapse; margin-top: 26px; font-size: 13px; }
   thead th {
@@ -25,242 +24,182 @@
     color: #8a8f98; padding: 10px 12px; border-bottom: 2px solid #e2e4e8;
   }
   tbody td { padding: 10px 12px; border-bottom: 1px solid #eceef1; vertical-align: top; line-height: 1.5; color: #333; }
-  tbody td.fn { font-weight: 600; color: #1a1a1a; width: 18%; }
+  tbody td.fn { font-weight: 600; color: #1a1a1a; width: 17%; }
   tbody td .t { font-weight: 600; color: #1a1a1a; }
   tbody tr.func td { background: #fafafa; }
   tbody tr.func td.fn { color: #2264d6; font-weight: 600; }
-  tbody td .tag {
-    display: inline-block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.4px;
-    border-radius: 3px; padding: 1px 6px; margin-left: 6px; vertical-align: middle;
-  }
-  .tag.ms { background: #e8f0fe; color: #1a56c0; }
-  .tag.def { background: #eef1f5; color: #454a52; }
-  .tag.gap { background: #fdeeee; color: #b3261e; }
-  .tag.new { background: #e6f4ea; color: #137333; }
-  .legend { display: flex; gap: 18px; margin-top: 14px; flex-wrap: wrap; font-size: 12px; color: #656a76; }
-  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+
+  /* DECISION tags */
+  .dec { display: inline-block; font-size: 10px; font-weight: 700; letter-spacing: 0.6px; border-radius: 3px; padding: 2px 7px; margin-bottom: 5px; white-space: nowrap; }
+  .dec.req { background: #e6f4ea; color: #137333; }
+  .dec.opt { background: #fff6da; color: #8a6116; }
+  .dec.build { background: #e8f0fe; color: #1a56c0; }
+  .dec.yes { background: #e6f4ea; color: #137333; }
+
+  .legend { display: flex; gap: 16px; margin-top: 14px; flex-wrap: wrap; font-size: 12px; color: #656a76; align-items:center; }
+  .legend span { display: inline-flex; align-items: center; gap: 5px; }
   .foot { margin-top: 26px; font-size: 12px; color: #b2b6bd; border-top: 1px solid #eceef1; padding-top: 14px; }
 </style>
 </head>
 <body>
   <div class="wrap">
-    <div class="kicker">Study Reference &middot; Interview Prep</div>
-    <h1>Standard endpoint tooling &mdash; Windows / macOS / Linux, one-to-one</h1>
+    <div class="kicker">Cross-Platform Endpoint Management</div>
+    <h1>Every line item is a decision — required, open, or build-to-close</h1>
     <div class="sub">
-      The job is managing all three without three separate playbooks. This matrix maps each standard function
-      to its tool on each platform so the comparison is second nature. Read it by row: same job, three tools.
+      A mature endpoint stack reads as a menu of deliberate choices, not an automated checklist. Each function is
+      required, open, or a gap to close &mdash; always with a stated reason. The job is defining the model and making the calls.
     </div>
+
     <div class="legend">
-      <span><span class="tag ms">MS</span>Microsoft-centric</span>
-      <span><span class="tag def">default/built-in</span>OS-native</span>
-      <span><span class="tag gap">gap</span>open challenge / no standard</span>
-      <span><span class="tag new">new</span>recent addition</span>
+      <span><span class="dec yes">REQUIRED</span> baseline — must run</span>
+      <span><span class="dec opt">OPEN</span> decision / optional</span>
+      <span><span class="dec build">BUILD</span> gap to close</span>
     </div>
 
     <table>
-      <thead>
-        <tr><th>Function</th><th>Windows</th><th>macOS</th><th>Linux</th></tr>
-      </thead>
+      <thead><tr><th>Line item</th><th>Windows</th><th>macOS</th><th>Linux</th><th>Decision</th></tr></thead>
       <tbody>
 
-        <!-- PROVISIONING -->
-        <tr class="func"><td class="fn" colspan="4">OS Provisioning &amp; Onboarding</td></tr>
+        <tr class="func"><td class="fn" colspan="5">OS Provisioning &amp; Onboarding</td></tr>
         <tr>
-          <td class="fn">Zero-touch provisioning</td>
-          <td><span class="t">Windows Autopilot</span> <span class="tag ms">MS</span><br/>OEM-registered; user-driven, cloud-first</td>
-          <td><span class="t">Apple Business Manager (ABM) + DEP</span> <span class="tag new">new</span><br/>automated device enrollment into MDM; image-free</td>
-          <td><span class="t">cloud-init / autoinstall / preseed</span> <span class="tag def">default</span><br/>first-boot init; no commercial parallel</td>
+          <td class="fn">Zero-touch provision</td>
+          <td><span class="t">Windows Autopilot</span></td>
+          <td><span class="t">ABM + DEP</span></td>
+          <td><span class="t">cloud-init / autoinstall</span></td>
+          <td><div class="dec yes">REQUIRED</div><span style="font-size:11.5px;color:#454a52;">reproducible endpoints from day one</span></td>
         </tr>
         <tr>
-          <td class="fn">Imaging / bare-metal deploy</td>
-          <td><span class="t">MDT / SCCM OSD, WinPE + WDS</span> <span class="tag ms">MS</span><br/>traditional; being superseded by Autopilot</td>
-          <td><span class="t">Imaging deprecated</span> <span class="tag def">default</span><br/>replaced by ABM+MDM; no monolithic image</td>
-          <td><span class="t">PXE + Kickstart</span> <span class="tag def">default</span><br/>network boot; per-distro (Kickstart/preseed/autoyast)</td>
+          <td class="fn">Bare-metal deploy</td>
+          <td><span class="t">MDT / SCCM OSD</span></td>
+          <td><span class="t">Imaging deprecated</span></td>
+          <td><span class="t">PXE + Kickstart</span></td>
+          <td><div class="dec req">REQUIRED</div><span style="font-size:11.5px;color:#454a52;">std image / reliable rebuild</span></td>
         </tr>
         <tr>
           <td class="fn">Post-provision config</td>
-          <td><span class="t">Intune CSP, Group Policy, PowerShell DSC</span> <span class="tag ms">MS</span></td>
-          <td><span class="t">MDM Config Profiles</span> <span class="tag def">default</span></td>
-          <td><span class="t">Ansible / Puppet / Chef</span> <span class="tag def">default</span><br/>agentless SSH or agents</td>
+          <td><span class="t">Intune CSP · GPO</span></td>
+          <td><span class="t">MDM Config Profiles</span></td>
+          <td><span class="t">Ansible / Puppet</span></td>
+          <td><div class="dec yes">REQUIRED</div><span style="font-size:11.5px;color:#454a52;">config as code = attestable</span></td>
         </tr>
 
-        <!-- MANAGEMENT -->
-        <tr class="func"><td class="fn" colspan="4">Device Management (MDM / UEM)</td></tr>
+        <tr class="func"><td class="fn" colspan="5">Device Management (MDM / UEM)</td></tr>
         <tr>
           <td class="fn">Management platform</td>
-          <td><span class="t">Intune</span> <span class="tag ms">MS</span>; legacy SCCM</td>
-          <td><span class="t">Iru (Kandji)</span> / Jamf <span class="tag def">default</span></td>
-          <td><span class="t">None native</span> <span class="tag gap">gap</span><br/>managed via Ansible / fleet / Landscape</td>
-        </tr>
-
-        <!-- BACKBONE: osquery unified visibility -->
-        <tr>
-          <td class="fn" style="color:#6f2db3;">Unified visibility <span class="tag new">shared layer</span></td>
-          <td><span class="t" style="color:#6f2db3;">osquery (Fleet)</span></td>
-          <td><span class="t" style="color:#6f2db3;">osquery (Fleet)</span></td>
-          <td><span class="t" style="color:#6f2db3;">osquery (Fleet)</span></td>
+          <td><span class="t">Intune</span></td>
+          <td><span class="t">Iru (Kandji) / Jamf</span></td>
+          <td><span class="t">None native</span></td>
+          <td><div class="dec build">BUILD</div><span style="font-size:11.5px;color:#454a52;">Linux mgmt framework &mdash; the mandate</span></td>
         </tr>
         <tr>
-          <td class="fn">&nbsp;</td>
-          <td colspan="3" style="font-size:12px;color:#4a3a6b;background:#f6f2fb;">
-            <b>One query language across all three.</b> Read-only SQL over endpoint state — encryption, EDR present, lock config,
-            software inventory. No MDM needed on Linux &mdash; the shared verification layer everything else sits on.
-          </td>
+          <td class="fn">Unified visibility</td>
+          <td><span class="t">osquery (Fleet)</span></td>
+          <td><span class="t">osquery (Fleet)</span></td>
+          <td><span class="t">osquery (Fleet)</span></td>
+          <td><div class="dec yes">REQUIRED</div><span style="font-size:11.5px;color:#454a52;">one verify layer, no MDM needed on Linux</span></td>
         </tr>
         <tr>
           <td class="fn">App delivery</td>
-          <td><span class="t">Intune apps / PDQ</span> <span class="tag ms">MS</span></td>
-          <td><span class="t">Munki / MDM</span> <span class="tag def">default</span></td>
-          <td><span class="t">Ansible / pkg repos</span> <span class="tag def">default</span></td>
+          <td><span class="t">Intune apps / PDQ</span></td>
+          <td><span class="t">Munki / MDM</span></td>
+          <td><span class="t">Ansible / pkg repos</span></td>
+          <td><div class="dec yes">REQUIRED</div><span style="font-size:11.5px;color:#454a52;">standard software, consistent</span></td>
         </tr>
 
-        <!-- PATCHING -->
-        <tr class="func"><td class="fn" colspan="4">Patching &amp; Vulnerability</td></tr>
-        <tr>
-          <td class="fn">OS + app patching</td>
-          <td><span class="t">WSUS / Intune / SCCM</span> <span class="tag ms">MS</span></td>
-          <td><span class="t">MDM-managed updates + vendor</span> <span class="tag def">default</span><br/>Apple Software Update via MDM</td>
-          <td><span class="t">apt/yum/dnf + unattended-upgrades</span> <span class="tag def">default</span></td>
-        </tr>
-        <tr>
-          <td class="fn">Cross-platform patching</td>
-          <td colspan="3"><span class="t">Action1</span> <span class="tag new">new</span><br/>cloud-native; patches Windows, macOS, Linux; CVE/CVSS/KEV visibility</td>
-        </tr>
-
-        <!-- BACKBONE: automation / remediation -->
-        <tr>
-          <td class="fn" style="color:#6f2db3;">Auto-remediation <span class="tag new">shared layer</span></td>
-          <td colspan="3" style="background:#f6f2fb;"><span class="t" style="color:#6f2db3;">Drift &rarr; remediate &rarr; verify &rarr; escalate</span><br/>closed loop, not just detection &mdash; fix approved changes, auto-remediate, re-verify, escalate failures</td>
-        </tr>
-
-        <!-- BACKBONE: process / change control -->
-        <tr>
-          <td class="fn" style="color:#6f2db3;">Process / change control <span class="tag new">shared layer</span></td>
-          <td colspan="3" style="background:#f6f2fb;"><span class="t" style="color:#6f2db3;">Request &rarr; approve &rarr; execute &middot; cross-referenced to change mgmt</span><br/>no admin acts alone &mdash; catches unauthorized or colluding change that technical controls miss</td>
-        </tr>
-
-        <!-- BACKBONE: audit evidence -->
-        <tr>
-          <td class="fn" style="color:#6f2db3;">Audit evidence <span class="tag new">shared layer</span></td>
-          <td colspan="3" style="background:#f6f2fb;"><span class="t" style="color:#6f2db3;">Automated compliance reports</span><br/>CMMC / board / auditor answer generated in hours, not weeks &mdash; one defensible number</td>
-        </tr>
-
-        <!-- SECURITY -->
-        <tr class="func"><td class="fn" colspan="4">Endpoint Security</td></tr>
+        <tr class="func"><td class="fn" colspan="5">Endpoint Security</td></tr>
         <tr>
           <td class="fn">EDR / XDR</td>
-          <td><span class="t">Defender for Endpoint</span> <span class="tag ms">MS</span>; CrowdStrike</td>
-          <td><span class="t">XProtect + Gatekeeper</span> <span class="tag def">default</span>; vendor EDR agents</td>
-          <td><span class="t">Vendor EDR agents</span> <span class="tag def">default</span>; AppArmor/SELinux</td>
-        </tr>
-        <tr>
-          <td class="fn">Anti-malware</td>
-          <td><span class="t">Microsoft Defender</span> <span class="tag ms">MS</span></td>
-          <td><span class="t">XProtect, notarization</span> <span class="tag def">default</span></td>
-          <td><span class="t">ClamAV</span> <span class="tag gap">gap</span>; no strong native AV</td>
+          <td><span class="t">Defender / vendor agent</span></td>
+          <td><span class="t">XProtect + cloud agent</span></td>
+          <td><span class="t">cloud agent + SELinux</span></td>
+          <td><div class="dec yes">REQUIRED</div><span style="font-size:11.5px;color:#454a52;">Linux parity varies by vendor</span></td>
         </tr>
         <tr>
           <td class="fn">Disk encryption</td>
-          <td><span class="t">BitLocker</span> <span class="tag ms">MS</span></td>
-          <td><span class="t">FileVault</span> <span class="tag def">default</span></td>
-          <td><span class="t">LUKS / dm-crypt</span> <span class="tag def">default</span></td>
+          <td><span class="t">BitLocker</span></td>
+          <td><span class="t">FileVault</span></td>
+          <td><span class="t">LUKS</span></td>
+          <td><div class="dec yes">REQUIRED</div><span style="font-size:11.5px;color:#454a52;">baseline compliance</span></td>
         </tr>
 
-        <!-- IDENTITY -->
-        <tr class="func"><td class="fn" colspan="4">Identity &amp; Access</td></tr>
+        <tr class="func"><td class="fn" colspan="5">Identity &amp; Access</td></tr>
         <tr>
           <td class="fn">Cloud identity</td>
-          <td><span class="t">Entra ID (Azure AD)</span> <span class="tag ms">MS</span></td>
-          <td><span class="t">Entra / AD federation</span> <span class="tag ms">MS</span>; Keychain</td>
-          <td><span class="t">Entra / AD via SSSD + Kerberos</span> <span class="tag ms">MS</span></td>
+          <td><span class="t">Entra ID</span></td>
+          <td><span class="t">Entra / federation</span></td>
+          <td><span class="t">SSSD + Kerberos</span></td>
+          <td><div class="dec yes">REQUIRED</div><span style="font-size:11.5px;color:#454a52;">single identity fabric</span></td>
         </tr>
         <tr>
           <td class="fn">Hardware-bound auth</td>
-          <td><span class="t">Windows Hello for Business (TPM)</span> <span class="tag ms">MS</span></td>
-          <td><span class="t">Secure Enclave + Touch ID</span> <span class="tag def">default</span></td>
-          <td><span class="t">No native equivalent</span> <span class="tag gap">gap</span><br/>TPM is not standard on client hardware</td>
-        </tr>
-        <tr>
-          <td class="fn">Conditional Access (posture)</td>
-          <td colspan="3"><span class="t">Entra Conditional Access</span> <span class="tag ms">MS</span><br/>satisfied by the platform + hardware-bound compliance telemetry</td>
+          <td><span class="t">WHfB (TPM)</span></td>
+          <td><span class="t">Secure Enclave</span></td>
+          <td><span class="t">None native</span></td>
+          <td><div class="dec opt">OPEN</div><span style="font-size:11.5px;color:#454a52;">Linux HW-bound auth is a gap</span></td>
         </tr>
 
-        <!-- REMOTE ACCESS -->
-        <tr class="func"><td class="fn" colspan="4">Remote Access &amp; Network</td></tr>
+        <tr class="func"><td class="fn" colspan="5">Patching &amp; Vulnerability</td></tr>
+        <tr>
+          <td class="fn">Cross-platform patch</td>
+          <td colspan="3"><span class="t">Action1</span> &mdash; cloud-native; Windows/macOS/Linux, CVE/CVSS/KEV visibility</td>
+          <td><div class="dec yes">REQUIRED</div><span style="font-size:11.5px;color:#454a52;">in place; build posture on top</span></td>
+        </tr>
+
+        <tr class="func"><td class="fn" colspan="5">Email, Insider-Threat, Backup</td></tr>
         <tr>
           <td class="fn">Email security</td>
-          <td colspan="3"><span class="t">Mimecast</span> <span class="tag cloud">cloud</span> &mdash; email security, phishing protection, archiving</td>
+          <td colspan="3"><span class="t">Mimecast</span> &mdash; email security, phishing, archiving</td>
+          <td><div class="dec yes">REQUIRED</div><span style="font-size:11.5px;color:#454a52;">email/archiving baseline</span></td>
         </tr>
         <tr>
           <td class="fn">Insider threat / DLP</td>
-          <td colspan="3"><span class="t">Code42 (Incydr)</span> <span class="tag cloud">cloud</span> &mdash; data loss detection, insider-risk monitoring</td>
+          <td colspan="3"><span class="t">Code42 (Incydr)</span> &mdash; data loss / insider-risk monitoring</td>
+          <td><div class="dec yes">REQUIRED</div><span style="font-size:11.5px;color:#454a52;">insider + process-drift coverage</span></td>
         </tr>
         <tr>
           <td class="fn">Endpoint backup</td>
-          <td colspan="3"><span class="t">Code42 backup &rarr; Druva migration</span> <span class="tag new">migration</span><br/>
-          Incydr Backup add-on (formerly Code42) being phased out, Druva the cloud-native successor. Druva backs up Windows + macOS (current; native Iru Auto-App for Mac). <b>Linux client older/limited</b> (inSync v5.9.5) &mdash; Linux backup is the open gap.</td>
+          <td colspan="3"><span class="t">Code42 backup &rarr; Druva?</span> &mdash; Dell APEX/PowerProtect Backup = Druva under the hood</td>
+          <td><div class="dec opt">OPEN</div><span style="font-size:11.5px;color:#454a52;">for a dev/IP estate, often deliberately no &mdash; decide per population</span></td>
         </tr>
+
+        <tr class="func"><td class="fn" colspan="5">Remote Access &amp; Automation</td></tr>
         <tr>
           <td class="fn">ZTNA (VPN replace)</td>
-          <td><span class="t">vendor ZTNA client</span> <span class="tag cloud">cloud</span></td>
-          <td><span class="t">vendor ZTNA client</span> <span class="tag cloud">cloud</span></td>
-          <td><span class="t">vendor ZTNA client</span> <span class="tag cloud">cloud</span></td>
+          <td><span class="t">vendor ZTNA</span></td>
+          <td><span class="t">vendor ZTNA</span></td>
+          <td><span class="t">vendor ZTNA</span></td>
+          <td><div class="dec req">REQUIRED</div><span style="font-size:11.5px;color:#454a52;">stated priority</span></td>
         </tr>
         <tr>
-          <td class="fn" style="font-size:11px;color:#8a8f98;">note</td>
-          <td colspan="3" style="font-size:12px;color:#454a52;">Legacy VPN &rarr; ZTNA modernization is a stated priority (JD). Vendor may vary &mdash; confirm which, then sell the capability, not a logo.</td>
+          <td class="fn">Automation</td>
+          <td><span class="t">PowerShell</span></td>
+          <td><span class="t">bash / osascript</span></td>
+          <td><span class="t">bash / Ansible</span></td>
+          <td><div class="dec yes">REQUIRED</div><span style="font-size:11.5px;color:#454a52;">config as code</span></td>
         </tr>
 
-        <!-- AUTOMATION -->
-        <tr class="func"><td class="fn" colspan="4">Scripting &amp; Automation</td></tr>
+        <tr class="func"><td class="fn" colspan="5">Cross-Cutting Layers</td></tr>
         <tr>
-          <td class="fn">Scripting / automation</td>
-          <td><span class="t">PowerShell</span> <span class="tag ms">MS</span>; WinRM</td>
-          <td><span class="t">zsh/bash, osascript</span> <span class="tag def">default</span></td>
-          <td><span class="t">bash, python, Ansible</span> <span class="tag def">default</span></td>
-        </tr>
-
-        <!-- LOGGING -->
-        <tr class="func"><td class="fn" colspan="4">Logging &amp; SIEM</td></tr>
-        <tr>
-          <td class="fn">Endpoint logging</td>
-          <td><span class="t">Windows Event Log + Sysmon</span> <span class="tag ms">MS</span></td>
-          <td><span class="t">Unified Logging</span> <span class="tag def">default</span></td>
-          <td><span class="t">syslog / journald + auditd</span> <span class="tag def">default</span></td>
+          <td class="fn">Auto-remediation</td>
+          <td colspan="4">drift &rarr; remediate &rarr; verify &rarr; escalate &middot; closes the loop</td>
         </tr>
         <tr>
-          <td class="fn">SIEM / SaaS posture</td>
-          <td colspan="3"><span class="t">Microsoft Sentinel + Defender for Cloud Apps</span> <span class="tag ms">MS</span><br/>aggregation of SaaS/Entra drift feeds the posture engine</td>
-        </tr>
-
-        <!-- SELF SERVICE -->
-        <tr class="func"><td class="fn" colspan="4">User Self-Service &amp; Software</td></tr>
-        <tr>
-          <td class="fn">Self-service app catalog</td>
-          <td><span class="t">Company Portal</span> <span class="tag ms">MS</span></td>
-          <td><span class="t">Kandji / Jamf Self Service</span> <span class="tag def">default</span></td>
-          <td><span class="t">Package repos / internal catalog</span> <span class="tag gap">gap</span><br/>no standardized corporate store</td>
+          <td class="fn">Change control</td>
+          <td colspan="4">request &rarr; approve &rarr; execute &middot; no admin acts alone</td>
         </tr>
         <tr>
-          <td class="fn">Web browser / core apps</td>
-          <td>Chrome / Edge / Firefox</td>
-          <td>Chrome / Edge / Firefox</td>
-          <td>Chrome / Edge / Firefox</td>
+          <td class="fn">Audit evidence</td>
+          <td colspan="4">automated CMMC/board/auditor reports in hours</td>
         </tr>
-
-        <!-- COMPLIANCE CONSOLIDATION -->
-        <tr class="func"><td class="fn" colspan="4">Compliance Consolidation</td></tr>
         <tr>
           <td class="fn">One posture number</td>
-          <td colspan="3"><span class="t">Cross-platform drift / posture engine</span> <span class="tag new">new</span><br/>the layer the market doesn't sell — defines &ldquo;compliant&rdquo; once, verifies, aggregates</td>
+          <td colspan="4">all vectors &rarr; a single auditor-ready figure</td>
         </tr>
 
       </tbody>
     </table>
 
-    <div class="foot">
-      Cross-Platform Endpoint Tooling Matrix &middot; study reference &middot; vendor names illustrative of standard practice &mdash; confirm against Ampere's actual stack in conversation
-    </div>
+    <div class="foot">Cross-platform endpoint tooling &middot; Windows / macOS / Linux &middot; one model</div>
   </div>
 </body>
 </html>
