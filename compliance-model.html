@@ -97,6 +97,7 @@
         <div class="ndesc">Read-only SQL over endpoint state — encryption, EDR present, lock config, software inventory, patch state. Same checks on all three platforms.</div>
         <div class="ndetail">
           Deploys via Fleet (open-source management of osquery). The verification layer the whole model sits on.<br/>
+          osquery is the <b>device-local eyes</b> &mdash; complemented by tool telemetry streamed from the SIEM / tooling APIs (Action1, Code42, Mimecast, cloud EDR, Entra/Intune/ZTNA).<br/>
           You can query: is disk encryption on? is the EDR agent running? is the screen lock set? what software is installed? is this host patched?
         </div>
       </div>
@@ -112,6 +113,24 @@
           <b>SaaS / Entra</b> — Intune / Conditional Access policy drift.<br/>
           <b>Process / Change</b> — was the change approved? no-CAB? colluding admins?<br/>
           <b>Vulnerability</b> — Action1 patch state, CVE / KEV tracking.
+        </div>
+      </div>
+
+      <div class="edge"></div>
+
+      <!-- --- TELEMETRY: ALL TOOLS STREAM UP --- -->
+      <div class="node gray" onclick="this.classList.toggle('open')">
+        <div class="nhead"><span class="nt">Telemetry &middot; All Eyes Up</span><span class="nrole">every tool feeds the posture number</span><span class="chev">&#9660; expand</span></div>
+        <div class="ndesc">Every security/tool telemetry stream feeds the compliance engine &mdash; this is how the model sees the whole estate, not just the device-local slice.</div>
+        <div class="ndetail">
+          <b>osquery (Fleet)</b> &mdash; device-local state: encryption, lock, EDR present, software inventory, patch state on the host itself.<br/>
+          <b>Tool telemetry APIs</b> &mdash; stream the tool-level signal into the compliance engine:<br/>
+          &nbsp;&nbsp;&bull; <b>Action1</b> &mdash; patch / vulnerability status (CVE / CVSS / KEV).<br/>
+          &nbsp;&nbsp;&bull; <b>Code42 / Incydr</b> &mdash; insider-risk &amp; data-loss events.<br/>
+          &nbsp;&nbsp;&bull; <b>Mimecast</b> &mdash; email / mail-threat intelligence.<br/>
+          &nbsp;&nbsp;&bull; <b>Cloud EDR</b> &mdash; endpoint detections &amp; agent health.<br/>
+          &nbsp;&nbsp;&bull; <b>Entra / Intune / ZTNA</b> &mdash; device &amp; access posture (compliance, CA, MFA).<br/>
+          <b>Fusion:</b> osquery gives device-local truth; tool APIs stream the tool-level signal; the drift engine fuses both into the one number.
         </div>
       </div>
 
