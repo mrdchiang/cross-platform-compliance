@@ -89,12 +89,29 @@
         <tr>
           <td class="fn">Management platform</td>
           <td><span class="t">Intune</span> <span class="tag ms">MS</span>; legacy SCCM</td>
-          <td><span class="t">Iru (Kandji)</span> / Jamf <span class="tag def">default</span><br/>scoped to Apple device management</td>
+          <td><span class="t">Iru (Kandji)</span> / Jamf <span class="tag def">default</span></td>
           <td><span class="t">None native</span> <span class="tag gap">gap</span><br/>managed via Ansible / fleet / Landscape</td>
         </tr>
+
+        <!-- BACKBONE: osquery unified visibility -->
         <tr>
-          <td class="fn">Unified endpoint visibility</td>
-          <td colspan="3"><span class="t">Fleet / osquery</span> <span class="tag def">default</span><br/>one query language across all three — the shared verification layer</td>
+          <td class="fn" style="color:#6f2db3;">Unified visibility <span class="tag new">shared layer</span></td>
+          <td><span class="t" style="color:#6f2db3;">osquery (Fleet)</span></td>
+          <td><span class="t" style="color:#6f2db3;">osquery (Fleet)</span></td>
+          <td><span class="t" style="color:#6f2db3;">osquery (Fleet)</span></td>
+        </tr>
+        <tr>
+          <td class="fn">&nbsp;</td>
+          <td colspan="3" style="font-size:12px;color:#4a3a6b;background:#f6f2fb;">
+            <b>One query language across all three.</b> Read-only SQL over endpoint state — encryption, EDR present, lock config,
+            software inventory. No MDM needed on Linux &mdash; the shared verification layer everything else sits on.
+          </td>
+        </tr>
+        <tr>
+          <td class="fn">App delivery</td>
+          <td><span class="t">Intune apps / PDQ</span> <span class="tag ms">MS</span></td>
+          <td><span class="t">Munki / MDM</span> <span class="tag def">default</span></td>
+          <td><span class="t">Ansible / pkg repos</span> <span class="tag def">default</span></td>
         </tr>
 
         <!-- PATCHING -->
@@ -108,6 +125,24 @@
         <tr>
           <td class="fn">Cross-platform patching</td>
           <td colspan="3"><span class="t">Action1</span> <span class="tag new">new</span><br/>cloud-native; patches Windows, macOS, Linux; CVE/CVSS/KEV visibility</td>
+        </tr>
+
+        <!-- BACKBONE: automation / remediation -->
+        <tr>
+          <td class="fn" style="color:#6f2db3;">Auto-remediation <span class="tag new">shared layer</span></td>
+          <td colspan="3" style="background:#f6f2fb;"><span class="t" style="color:#6f2db3;">Drift &rarr; remediate &rarr; verify &rarr; escalate</span><br/>closed loop, not just detection &mdash; fix approved changes, auto-remediate, re-verify, escalate failures</td>
+        </tr>
+
+        <!-- BACKBONE: process / change control -->
+        <tr>
+          <td class="fn" style="color:#6f2db3;">Process / change control <span class="tag new">shared layer</span></td>
+          <td colspan="3" style="background:#f6f2fb;"><span class="t" style="color:#6f2db3;">Request &rarr; approve &rarr; execute &middot; cross-referenced to change mgmt</span><br/>no admin acts alone &mdash; catches unauthorized or colluding change that technical controls miss</td>
+        </tr>
+
+        <!-- BACKBONE: audit evidence -->
+        <tr>
+          <td class="fn" style="color:#6f2db3;">Audit evidence <span class="tag new">shared layer</span></td>
+          <td colspan="3" style="background:#f6f2fb;"><span class="t" style="color:#6f2db3;">Automated compliance reports</span><br/>CMMC / board / auditor answer generated in hours, not weeks &mdash; one defensible number</td>
         </tr>
 
         <!-- SECURITY -->
