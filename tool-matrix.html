@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cross-Platform Endpoint Tooling — One-to-One Comparison</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    background: #ffffff; color: #1a1a1a;
+    min-height: 100vh; padding: 40px 28px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1180px; margin: 0 auto; }
+  .kicker { font-size: 13px; font-weight: 600; letter-spacing: 1.3px; text-transform: uppercase; color: #656a76; margin-bottom: 10px; }
+  h1 { font-size: 27px; font-weight: 600; line-height: 1.2; }
+  .sub { font-size: 14px; color: #656a76; margin-top: 8px; line-height: 1.55; max-width: 800px; }
+  p.note { font-size: 12.5px; color: #8a8f98; margin-top: 6px; }
+
+  table { width: 100%; border-collapse: collapse; margin-top: 26px; font-size: 13px; }
+  thead th {
+    text-align: left; font-size: 11px; font-weight: 600; letter-spacing: 1px; text-transform: uppercase;
+    color: #8a8f98; padding: 10px 12px; border-bottom: 2px solid #e2e4e8;
+  }
+  tbody td { padding: 10px 12px; border-bottom: 1px solid #eceef1; vertical-align: top; line-height: 1.5; color: #333; }
+  tbody td.fn { font-weight: 600; color: #1a1a1a; width: 18%; }
+  tbody td .t { font-weight: 600; color: #1a1a1a; }
+  tbody tr.func td { background: #fafafa; }
+  tbody tr.func td.fn { color: #2264d6; font-weight: 600; }
+  tbody td .tag {
+    display: inline-block; font-size: 10.5px; font-weight: 600; letter-spacing: 0.4px;
+    border-radius: 3px; padding: 1px 6px; margin-left: 6px; vertical-align: middle;
+  }
+  .tag.ms { background: #e8f0fe; color: #1a56c0; }
+  .tag.def { background: #eef1f5; color: #454a52; }
+  .tag.gap { background: #fdeeee; color: #b3261e; }
+  .tag.new { background: #e6f4ea; color: #137333; }
+  .legend { display: flex; gap: 18px; margin-top: 14px; flex-wrap: wrap; font-size: 12px; color: #656a76; }
+  .legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .foot { margin-top: 26px; font-size: 12px; color: #b2b6bd; border-top: 1px solid #eceef1; padding-top: 14px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="kicker">Study Reference &middot; Interview Prep</div>
+    <h1>Standard endpoint tooling &mdash; Windows / macOS / Linux, one-to-one</h1>
+    <div class="sub">
+      The job is managing all three without three separate playbooks. This matrix maps each standard function
+      to its tool on each platform so the comparison is second nature. Read it by row: same job, three tools.
+    </div>
+    <div class="legend">
+      <span><span class="tag ms">MS</span>Microsoft-centric</span>
+      <span><span class="tag def">default/built-in</span>OS-native</span>
+      <span><span class="tag gap">gap</span>open challenge / no standard</span>
+      <span><span class="tag new">new</span>recent addition</span>
+    </div>
+
+    <table>
+      <thead>
+        <tr><th>Function</th><th>Windows</th><th>macOS</th><th>Linux</th></tr>
+      </thead>
+      <tbody>
+
+        <!-- PROVISIONING -->
+        <tr class="func"><td class="fn" colspan="4">OS Provisioning &amp; Onboarding</td></tr>
+        <tr>
+          <td class="fn">Zero-touch provisioning</td>
+          <td><span class="t">Windows Autopilot</span> <span class="tag ms">MS</span><br/>OEM-registered; user-driven, cloud-first</td>
+          <td><span class="t">Apple Business Manager (ABM) + DEP</span> <span class="tag new">new</span><br/>automated device enrollment into MDM; image-free</td>
+          <td><span class="t">cloud-init / autoinstall / preseed</span> <span class="tag def">default</span><br/>first-boot init; no commercial parallel</td>
+        </tr>
+        <tr>
+          <td class="fn">Imaging / bare-metal deploy</td>
+          <td><span class="t">MDT / SCCM OSD, WinPE + WDS</span> <span class="tag ms">MS</span><br/>traditional; being superseded by Autopilot</td>
+          <td><span class="t">Imaging deprecated</span> <span class="tag def">default</span><br/>replaced by ABM+MDM; no monolithic image</td>
+          <td><span class="t">PXE + Kickstart</span> <span class="tag def">default</span><br/>network boot; per-distro (Kickstart/preseed/autoyast)</td>
+        </tr>
+        <tr>
+          <td class="fn">Post-provision config</td>
+          <td><span class="t">Intune CSP, Group Policy, PowerShell DSC</span> <span class="tag ms">MS</span></td>
+          <td><span class="t">MDM Config Profiles</span> <span class="tag def">default</span></td>
+          <td><span class="t">Ansible / Puppet / Chef</span> <span class="tag def">default</span><br/>agentless SSH or agents</td>
+        </tr>
+
+        <!-- MANAGEMENT -->
+        <tr class="func"><td class="fn" colspan="4">Device Management (MDM / UEM)</td></tr>
+        <tr>
+          <td class="fn">Management platform</td>
+          <td><span class="t">Intune</span> <span class="tag ms">MS</span>; legacy SCCM</td>
+          <td><span class="t">Iru (Kandji)</span> / Jamf <span class="tag def">default</span><br/>scoped to Apple device management</td>
+          <td><span class="t">None native</span> <span class="tag gap">gap</span><br/>managed via Ansible / fleet / Landscape</td>
+        </tr>
+        <tr>
+          <td class="fn">Unified endpoint visibility</td>
+          <td colspan="3"><span class="t">Fleet / osquery</span> <span class="tag def">default</span><br/>one query language across all three — the shared verification layer</td>
+        </tr>
+
+        <!-- PATCHING -->
+        <tr class="func"><td class="fn" colspan="4">Patching &amp; Vulnerability</td></tr>
+        <tr>
+          <td class="fn">OS + app patching</td>
+          <td><span class="t">WSUS / Intune / SCCM</span> <span class="tag ms">MS</span></td>
+          <td><span class="t">MDM-managed updates + vendor</span> <span class="tag def">default</span><br/>Apple Software Update via MDM</td>
+          <td><span class="t">apt/yum/dnf + unattended-upgrades</span> <span class="tag def">default</span></td>
+        </tr>
+        <tr>
+          <td class="fn">Cross-platform patching</td>
+          <td colspan="3"><span class="t">Action1</span> <span class="tag new">new</span><br/>cloud-native; patches Windows, macOS, Linux; CVE/CVSS/KEV visibility</td>
+        </tr>
+
+        <!-- SECURITY -->
+        <tr class="func"><td class="fn" colspan="4">Endpoint Security</td></tr>
+        <tr>
+          <td class="fn">EDR / XDR</td>
+          <td><span class="t">Defender for Endpoint</span> <span class="tag ms">MS</span>; CrowdStrike</td>
+          <td><span class="t">XProtect + Gatekeeper</span> <span class="tag def">default</span>; vendor EDR agents</td>
+          <td><span class="t">Vendor EDR agents</span> <span class="tag def">default</span>; AppArmor/SELinux</td>
+        </tr>
+        <tr>
+          <td class="fn">Anti-malware</td>
+          <td><span class="t">Microsoft Defender</span> <span class="tag ms">MS</span></td>
+          <td><span class="t">XProtect, notarization</span> <span class="tag def">default</span></td>
+          <td><span class="t">ClamAV</span> <span class="tag gap">gap</span>; no strong native AV</td>
+        </tr>
+        <tr>
+          <td class="fn">Disk encryption</td>
+          <td><span class="t">BitLocker</span> <span class="tag ms">MS</span></td>
+          <td><span class="t">FileVault</span> <span class="tag def">default</span></td>
+          <td><span class="t">LUKS / dm-crypt</span> <span class="tag def">default</span></td>
+        </tr>
+
+        <!-- IDENTITY -->
+        <tr class="func"><td class="fn" colspan="4">Identity &amp; Access</td></tr>
+        <tr>
+          <td class="fn">Cloud identity</td>
+          <td><span class="t">Entra ID (Azure AD)</span> <span class="tag ms">MS</span></td>
+          <td><span class="t">Entra / AD federation</span> <span class="tag ms">MS</span>; Keychain</td>
+          <td><span class="t">Entra / AD via SSSD + Kerberos</span> <span class="tag ms">MS</span></td>
+        </tr>
+        <tr>
+          <td class="fn">Hardware-bound auth</td>
+          <td><span class="t">Windows Hello for Business (TPM)</span> <span class="tag ms">MS</span></td>
+          <td><span class="t">Secure Enclave + Touch ID</span> <span class="tag def">default</span></td>
+          <td><span class="t">No native equivalent</span> <span class="tag gap">gap</span><br/>TPM is not standard on client hardware</td>
+        </tr>
+        <tr>
+          <td class="fn">Conditional Access (posture)</td>
+          <td colspan="3"><span class="t">Entra Conditional Access</span> <span class="tag ms">MS</span><br/>satisfied by the platform + hardware-bound compliance telemetry</td>
+        </tr>
+
+        <!-- REMOTE ACCESS -->
+        <tr class="func"><td class="fn" colspan="4">Remote Access &amp; Network</td></tr>
+        <tr>
+          <td class="fn">ZTNA (VPN replacement)</td>
+          <td><span class="t">Zscaler ZPA</span>; vendor clients <span class="tag def">default</span></td>
+          <td><span class="t">Zscaler ZPA</span>; vendor clients <span class="tag def">default</span></td>
+          <td><span class="t">Zscaler ZPA</span>; vendor clients <span class="tag def">default</span></td>
+        </tr>
+
+        <!-- AUTOMATION -->
+        <tr class="func"><td class="fn" colspan="4">Scripting &amp; Automation</td></tr>
+        <tr>
+          <td class="fn">Scripting / automation</td>
+          <td><span class="t">PowerShell</span> <span class="tag ms">MS</span>; WinRM</td>
+          <td><span class="t">zsh/bash, osascript</span> <span class="tag def">default</span></td>
+          <td><span class="t">bash, python, Ansible</span> <span class="tag def">default</span></td>
+        </tr>
+
+        <!-- LOGGING -->
+        <tr class="func"><td class="fn" colspan="4">Logging &amp; SIEM</td></tr>
+        <tr>
+          <td class="fn">Endpoint logging</td>
+          <td><span class="t">Windows Event Log + Sysmon</span> <span class="tag ms">MS</span></td>
+          <td><span class="t">Unified Logging</span> <span class="tag def">default</span></td>
+          <td><span class="t">syslog / journald + auditd</span> <span class="tag def">default</span></td>
+        </tr>
+        <tr>
+          <td class="fn">SIEM / SaaS posture</td>
+          <td colspan="3"><span class="t">Microsoft Sentinel + Defender for Cloud Apps</span> <span class="tag ms">MS</span><br/>aggregation of SaaS/Entra drift feeds the posture engine</td>
+        </tr>
+
+        <!-- SELF SERVICE -->
+        <tr class="func"><td class="fn" colspan="4">User Self-Service &amp; Software</td></tr>
+        <tr>
+          <td class="fn">Self-service app catalog</td>
+          <td><span class="t">Company Portal</span> <span class="tag ms">MS</span></td>
+          <td><span class="t">Kandji / Jamf Self Service</span> <span class="tag def">default</span></td>
+          <td><span class="t">Package repos / internal catalog</span> <span class="tag gap">gap</span><br/>no standardized corporate store</td>
+        </tr>
+        <tr>
+          <td class="fn">Web browser / core apps</td>
+          <td>Chrome / Edge / Firefox</td>
+          <td>Chrome / Edge / Firefox</td>
+          <td>Chrome / Edge / Firefox</td>
+        </tr>
+
+        <!-- COMPLIANCE CONSOLIDATION -->
+        <tr class="func"><td class="fn" colspan="4">Compliance Consolidation</td></tr>
+        <tr>
+          <td class="fn">One posture number</td>
+          <td colspan="3"><span class="t">Cross-platform drift / posture engine</span> <span class="tag new">new</span><br/>the layer the market doesn't sell — defines &ldquo;compliant&rdquo; once, verifies, aggregates</td>
+        </tr>
+
+      </tbody>
+    </table>
+
+    <div class="foot">
+      Cross-Platform Endpoint Tooling Matrix &middot; study reference &middot; vendor names illustrative of standard practice &mdash; confirm against Ampere's actual stack in conversation
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Three Platforms, One Model — the One-to-One</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    background: #ffffff; color: #1a1a1a;
+    min-height: 100vh; padding: 44px 44px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+  .kicker { font-size: 13px; font-weight: 600; letter-spacing: 1.3px; text-transform: uppercase; color: #8a8f98; margin-bottom: 12px; }
+  h1 { font-size: 30px; font-weight: 600; line-height: 1.18; margin-bottom: 6px; }
+  .sub { font-size: 15px; color: #656a76; line-height: 1.5; margin-bottom: 34px; max-width: 780px; }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  .panel {
+    border: 1px solid rgba(178,182,189,0.55); border-radius: 10px;
+    box-shadow: rgba(97,104,117,0.06) 0 1px 1px, rgba(97,104,117,0.06) 0 2px 2px;
+    padding: 20px 20px 18px; background: #ffffff;
+  }
+  .panel h2 { font-size: 12px; font-weight: 600; letter-spacing: 1.1px; text-transform: uppercase; color: #2264d6; margin-bottom: 14px; }
+  .panel.wide { grid-column: 1 / -1; }
+
+  .row { display: flex; border-bottom: 1px solid #f0f1f4; padding: 9px 0; gap: 12px; align-items: flex-start; }
+  .row:last-child { border-bottom: none; }
+  .fn { width: 130px; flex: 0 0 130px; font-size: 12.5px; font-weight: 600; color: #1a1a1a; padding-top: 2px; }
+  .col { flex: 1; font-size: 12.5px; color: #444; line-height: 1.5; }
+  .col .t { font-weight: 600; color: #1a1a1a; }
+  .os { font-size: 10.5px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; color: #8a8f98; margin-bottom: 3px; }
+  .gapmark { color: #b3261e; }
+  .highlight { background: #f5f7fb; border-radius: 8px; padding: 14px 16px; margin-bottom: 18px; border: 1px solid #e2e8f4; }
+  .highlight .os { color: #2264d6; }
+  .foot { margin-top: 28px; font-size: 12px; color: #b2b6bd; border-top: 1px solid #eceef1; padding-top: 14px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="kicker">Three Platforms &middot; One Model</div>
+    <h1>Same job, three tools</h1>
+    <div class="sub">The comparison that matters for the interview: each platform does the same thing differently. The role isn't learning three tools &mdash; it's defining one compliance model the three enforce natively.</div>
+
+    <!-- PROVISIONING - highlighted as the emphasis-->
+    <div class="panel">
+      <h2>OS Provisioning &amp; Onboarding <span class="os" style="margin-left:8px;">&mdash; the first mile</span></h2>
+      <div class="row">
+        <div class="fn">Zero-touch</div>
+        <div class="col"><div class="os">Windows</div><span class="t">Windows Autopilot</span> &mdash; OEM-registered, cloud-first</div>
+        <div class="col"><div class="os">macOS</div><span class="t">ABM + DEP</span> &mdash; automated MDM enrollment, no image</div>
+        <div class="col"><div class="os">Linux</div><span class="t">cloud-init / autoinstall</span> &mdash; first-boot init</div>
+      </div>
+      <div class="row">
+        <div class="fn">Bare-metal</div>
+        <div class="col"><div class="os">Windows</div><span class="t">MDT / SCCM OSD</span></div>
+        <div class="col"><div class="os">macOS</div><span class="t">Imaging deprecated</span></div>
+        <div class="col"><div class="os">Linux</div><span class="t">PXE + Kickstart</span></div>
+      </div>
+      <div class="row">
+        <div class="fn">Post-config</div>
+        <div class="col"><div class="os">Windows</div><span class="t">Intune CSP / GPO</span></div>
+        <div class="col"><div class="os">macOS</div><span class="t">MDM Config Profiles</span></div>
+        <div class="col"><div class="os">Linux</div><span class="t">Ansible / Puppet</span></div>
+      </div>
+    </div>
+
+    <div class="grid" style="margin-top:18px;">
+      <div class="panel">
+        <h2>Management &amp; Security</h2>
+        <div class="row">
+          <div class="fn">Management</div>
+          <div class="col"><div class="os">Windows</div><span class="t">Intune</span></div>
+          <div class="col"><div class="os">macOS</div><span class="t">Iru / Jamf</span></div>
+          <div class="col"><div class="os">Linux</div><span class="t gapmark">None native</span></div>
+        </div>
+        <div class="row">
+          <div class="fn">Encryption</div>
+          <div class="col"><div class="os">Windows</div><span class="t">BitLocker</span></div>
+          <div class="col"><div class="os">macOS</div><span class="t">FileVault</span></div>
+          <div class="col"><div class="os">Linux</div><span class="t">LUKS</span></div>
+        </div>
+        <div class="row">
+          <div class="fn">EDR</div>
+          <div class="col"><div class="os">Windows</div><span class="t">Defender / vendor</span></div>
+          <div class="col"><div class="os">macOS</div><span class="t">XProtect + vendor</span></div>
+          <div class="col"><div class="os">Linux</div><span class="t">vendor + SELinux</span></div>
+        </div>
+        <div class="row">
+          <div class="fn">Anti-malware</div>
+          <div class="col"><div class="os">Windows</div><span class="t">Defender</span></div>
+          <div class="col"><div class="os">macOS</div><span class="t">XProtect</span></div>
+          <div class="col"><div class="os">Linux</div><span class="t gapmark">ClamAV &mdash; weak</span></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>Identity, Patching, Automation</h2>
+        <div class="row">
+          <div class="fn">Cloud identity</div>
+          <div class="col"><div class="os">Windows</div><span class="t">Entra ID</span></div>
+          <div class="col"><div class="os">macOS</div><span class="t">Entra / federation</span></div>
+          <div class="col"><div class="os">Linux</div><span class="t">SSSD + Kerberos</span></div>
+        </div>
+        <div class="row">
+          <div class="fn">HW-bound auth</div>
+          <div class="col"><div class="os">Windows</div><span class="t">WHfB (TPM)</span></div>
+          <div class="col"><div class="os">macOS</div><span class="t">Secure Enclave</span></div>
+          <div class="col"><div class="os">Linux</div><span class="t gapmark">No native</span></div>
+        </div>
+        <div class="row">
+          <div class="fn">Cross-platform patch</div>
+          <div class="col os" style="color:#2264d6;">All three &middot; <span class="t">Action1</span> &mdash; recent addition</div>
+        </div>
+        <div class="row">
+          <div class="fn">Automation</div>
+          <div class="col"><div class="os">Windows</div><span class="t">PowerShell</span></div>
+          <div class="col"><div class="os">macOS</div><span class="t">bash / osascript</span></div>
+          <div class="col"><div class="os">Linux</div><span class="t">bash / Ansible</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- The one model note -->
+    <div class="panel wide" style="margin-top:18px;">
+      <h2>The one model</h2>
+      <div class="row">
+        <div class="col" style="flex:1;">
+          <div class="os">Enforce natively &middot; verify with osquery &middot; aggregate</div>
+          <span class="t">Define &ldquo;compliant&rdquo; once.</span> Each platform enforces its own way &mdash; but they report into <span class="t">one defended posture number</span>. The gaps (Linux mgmt, Linux HW-auth, Linux AV) are exactly where the new framework lands.
+        </div>
+      </div>
+    </div>
+
+    <div class="foot">Three Platforms, One Model &middot; interview talking visual &middot; vendor names illustrative &mdash; confirm against Ampere's stack in conversation</div>
+  </div>
+</body>
+</html>
