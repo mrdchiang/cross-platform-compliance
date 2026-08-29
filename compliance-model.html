@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Endpoint Compliance Model — Component Diagram</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    background: #ffffff; color: #1a1a1a;
+    min-height: 100vh; padding: 40px 28px;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1120px; margin: 0 auto; }
+  .kicker { font-size: 13px; font-weight: 600; letter-spacing: 1.3px; text-transform: uppercase; color: #656a76; margin-bottom: 8px; }
+  h1 { font-size: 24px; font-weight: 600; }
+  .sub { font-size: 13.5px; color: #656a76; margin-top: 6px; max-width: 840px; line-height: 1.5; }
+
+  .model { margin-top: 28px; display: flex; flex-direction: column; gap: 20px; }
+
+  /* ===== component ===== */
+  .comp {
+    border: 1px solid #d8dbe0; border-radius: 8px; background: #fff;
+    box-shadow: 0 1px 3px rgba(16,24,40,0.04);
+  }
+  .comp .head {
+    padding: 9px 14px; border-bottom: 1px solid #eceef1;
+    display: flex; align-items: center; gap: 10px; flex-wrap: wrap;
+  }
+  .comp .stereo { font-family:'IBM Plex Mono',monospace; font-size: 11px; color: #454a52; background: #f4f5f7; border:1px solid #e2e4e8; border-radius: 4px; padding: 1px 6px; }
+  .comp .name { font-weight: 600; font-size: 14px; }
+  .comp .role { font-size: 11.5px; color: #8a8f98; margin-left: auto; }
+  .comp .body { padding: 10px 14px; }
+
+  /* platform row: three platform components side by side */
+  .row3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+  .plat li { font-size: 12.5px; color: #333; list-style: none; padding: 4px 0 4px 14px; position: relative; border-bottom: 1px dashed #eef0f3; }
+  .plat li:last-child { border-bottom: none; }
+  .plat li:before { content:''; position:absolute; left:0; top:10px; width:6px; height:6px; border-radius:2px; background:#c5c9d0; }
+  .plat li .dn { display:inline-block; font-size:9px; font-weight:700; letter-spacing:.5px; border-radius:3px; padding:0 5px; margin-left:4px; vertical-align:middle; }
+  .dn.req { background:#e6f4ea; color:#137333; }
+  .dn.opt { background:#fff6da; color:#8a6116; }
+  .dn.gap { background:#e8f0fe; color:#1a56c0; }
+
+  .plat .foot { font-family:'IBM Plex Mono',monospace; font-size:10.5px; color:#454a52; margin-top:8px; padding-top:8px; border-top:1px solid #eceef1; }
+
+  /* connector row (layers that span all three) */
+  .connector {
+    display:flex; align-items:center; gap:14px; color:#2264d6;
+    font-family:'IBM Plex Mono',monospace; font-size:11.5px;
+    padding: 2px 4px;
+  }
+  .connector .line { flex:1; height:0; border-top:1.5px dashed #b9c2d6; }
+  .connector .lbl { white-space:nowrap; font-weight:500; }
+
+  /* stack rows fed upward */
+  .stack { display: grid; grid-template-columns: 1.1fr 1fr 1fr 1fr; gap: 14px; }
+  .stack .comp .body { padding: 8px 12px; }
+
+  .payoff {
+    border: 1.5px solid #c9d4e0; border-radius: 10px; background: #f7fafc;
+    padding: 16px 20px; text-align: center; box-shadow: 0 1px 4px rgba(16,24,40,0.05);
+  }
+  .payoff .num { font-size: 44px; font-weight: 300; color: #1a1a1a; line-height:1; letter-spacing:-1px; }
+  .payoff .num .pct { font-size: 24px; color: #2264d6; font-weight: 500; }
+  .payoff .lbl { font-size: 11px; font-weight:600; letter-spacing:1.5px; text-transform:uppercase; color:#454a52; margin-top:8px; }
+  .payoff .caps { font-size: 12px; color:#656a76; margin-top:4px; }
+
+  .legend { margin-top:22px; display:flex; gap:18px; font-size:12px; color:#454a52; align-items:center; flex-wrap:wrap; }
+  .legend span { display:inline-flex; align-items:center; gap:5px; }
+  .foot { margin-top:24px; font-size:12px; color:#b2b6bd; border-top:1px solid #eceef1; padding-top:14px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="kicker">Cross-Platform Endpoint Compliance</div>
+    <h1>Endpoint Compliance Model — component view</h1>
+    <div class="sub">
+      Three platform components, each enforcing the same policy natively. A shared verification layer reports
+      compliance state in one query language. Aggregation renders a single, auditor-ready posture number.
+      Decision tags: <span class="dn req">REQ</span> run &nbsp;<span class="dn opt">OPEN</span> decide &nbsp;<span class="dn gap">GAP</span> build
+    </div>
+
+    <div class="model">
+
+      <!-- ROW 1 : platform components -->
+      <div class="row3">
+        <div class="comp plat">
+          <div class="head"><span class="stereo">&lt;&lt;endpoint&gt;&gt;</span><span class="name">Windows</span><span class="role">enforce · Intune</span></div>
+          <div class="body">
+            <ul>
+              <li>Autopilot provision <span class="dn req">REQ</span></li>
+              <li>Intune / SCCM mgmt <span class="dn req">REQ</span></li>
+              <li>EDR (Defender / cloud) <span class="dn req">REQ</span></li>
+              <li>BitLocker encryption <span class="dn req">REQ</span></li>
+              <li>Entra ID + WHfB/TPM <span class="dn req">REQ</span></li>
+              <li>Bare-metal deploy <span class="dn req">REQ</span></li>
+            </ul>
+            <div class="foot">osquery &#9656; Fleet</div>
+          </div>
+        </div>
+
+        <div class="comp plat">
+          <div class="head"><span class="stereo">&lt;&lt;endpoint&gt;&gt;</span><span class="name">macOS</span><span class="role">enforce · Iru/Kandji</span></div>
+          <div class="body">
+            <ul>
+              <li>ABM + DEP provision <span class="dn req">REQ</span></li>
+              <li>Iru (Kandji) / Jamf mgmt <span class="dn req">REQ</span></li>
+              <li>EDR (XProtect + cloud) <span class="dn req">REQ</span></li>
+              <li>FileVault encryption <span class="dn req">REQ</span></li>
+              <li>Entra + Secure Enclave <span class="dn req">REQ</span></li>
+              <li>Imaging deprecated <span class="dn req">REQ</span></li>
+            </ul>
+            <div class="foot">osquery &#9656; Fleet</div>
+          </div>
+        </div>
+
+        <div class="comp plat">
+          <div class="head"><span class="stereo">&lt;&lt;endpoint&gt;&gt;</span><span class="name">Linux</span><span class="role">build · no native MDM</span></div>
+          <div class="body">
+            <ul>
+              <li>cloud-init / autoinstall <span class="dn req">REQ</span></li>
+              <li>Management framework <span class="dn gap">GAP</span> <span style="font-family:monospace;font-size:10px;color:#1a56c0;">build</span></li>
+              <li>EDR agent + SELinux <span class="dn req">REQ</span></li>
+              <li>LUKS encryption <span class="dn req">REQ</span></li>
+              <li>SSSD + Kerberos <span class="dn req">REQ</span></li>
+              <li>HW-bound auth <span class="dn opt">OPEN</span></li>
+            </ul>
+            <div class="foot">osquery gives Linux visibility w/o MDM</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="connector">
+        <span class="lbl">verify</span>
+        <div class="line"></div>
+        <span class="lbl">one query language across all three</span>
+        <div class="line"></div>
+      </div>
+
+      <!-- ROW 2: verification component -->
+      <div class="comp">
+        <div class="head"><span class="stereo">&lt;&lt;component&gt;&gt;</span><span class="name">Verification &amp; Visibility</span><span class="role">osquery · Fleet</span></div>
+        <div class="body" style="font-size:13px;color:#333;">
+          Read-only SQL over endpoint state &mdash; encryption, EDR present, lock config, software inventory, patch state. Same checks on Windows / macOS / Linux. No MDM required on Linux.
+        </div>
+      </div>
+
+      <!-- ROW 3: the four vectors -->
+      <div class="stack">
+        <div class="comp">
+          <div class="head"><span class="stereo">&lt;&lt;vector&gt;&gt;</span><span class="name">Configuration</span></div>
+          <div class="body">encryption · lock · EDR running · baseline state</div>
+        </div>
+        <div class="comp">
+          <div class="head"><span class="stereo">&lt;&lt;vector&gt;&gt;</span><span class="name">SaaS / Entra</span></div>
+          <div class="body">Intune / CA policy drift · SaaS posture</div>
+        </div>
+        <div class="comp">
+          <div class="head"><span class="stereo">&lt;&lt;vector&gt;&gt;</span><span class="name">Process / Change</span></div>
+          <div class="body">approved change · no-CAB · collusion detection</div>
+        </div>
+        <div class="comp">
+          <div class="head"><span class="stereo">&lt;&lt;vector&gt;&gt;</span><span class="name">Vulnerability</span></div>
+          <div class="body">Action1 patch state · CVE / KEV</div>
+        </div>
+      </div>
+
+      <div class="connector">
+        <span class="lbl">aggregate</span>
+        <div class="line"></div>
+        <span class="lbl">auto-remediate · change-control · audit evidence</span>
+        <div class="line"></div>
+      </div>
+
+      <!-- ROW 4: compliance engine -->
+      <div class="comp">
+        <div class="head"><span class="stereo">&lt;&lt;component&gt;&gt;</span><span class="name">Compliance Engine</span><span class="role">drift &rarr; remediate &rarr; verify &rarr; report</span></div>
+        <div class="body" style="font-size:13px;color:#333;">
+          Aggregates the four vectors into a single defended posture number. Auto-remediates approved drift, enforces
+          change control, and generates CMMC / board / auditor evidence on demand.
+        </div>
+      </div>
+
+      <!-- ROW 5 : payoff -->
+      <div class="payoff">
+        <div class="num">97.2<span class="pct">%</span></div>
+        <div class="lbl">Compliance Posture</div>
+        <div class="caps">one defended number · board-ready · auditor-ready</div>
+      </div>
+
+    </div>
+
+    <div class="legend">
+      <span><span class="dn req">REQ</span> required · runs</span>
+      <span><span class="dn opt">OPEN</span> decision / optional</span>
+      <span><span class="dn gap">GAP</span> gap this role builds</span>
+    </div>
+
+    <div class="foot">Endpoint Compliance Model · illustrative model · decision-first &middot; 97.2% is a placeholder figure</div>
+  </div>
+</body>
+</html>
